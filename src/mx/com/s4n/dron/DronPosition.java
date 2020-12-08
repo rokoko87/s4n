@@ -9,22 +9,24 @@ import mx.com.s4n.cardinalpoints.Norte;
  *
  */
 public class DronPosition {
-	
+
+	private static final Integer MAX_POSITION_X_Y = 10;
+
 	/**
 	 * The x axis
 	 */
 	private int x;
-	
+
 	/**
 	 * The y axis
 	 */
 	private int y;
-	
+
 	/**
 	 * The Cardinal Point [N,S,E,O]
 	 */
 	private CardinalPoint cardinalPoint;
-	
+
 	/**
 	 * Create a Drop Position
 	 * @param x
@@ -37,7 +39,7 @@ public class DronPosition {
 		this.y = y;
 		this.cardinalPoint = cardinalPoint;
 	}
-	
+
 	/**
 	 * Default position to start the route
 	 * @return Positio (0,0,N)
@@ -45,18 +47,25 @@ public class DronPosition {
 	public static DronPosition stepCero () {
 		return new DronPosition(0,0,new Norte());
 	}
-	
+
 	/**
 	 * How many go in the X axis and Y axis
 	 * @param avanzarX
 	 * @param avanzarY
+	 * @throws Exception
 	 */
-	public void avanzar (int avanzarX, int avanzarY) {
+	public void avanzar (int avanzarX, int avanzarY) throws Exception {
 		this.x += + avanzarX;
 		this.y += + avanzarY;
+
+		if (this.x > MAX_POSITION_X_Y)
+			throw new Exception("The max X axis is " + MAX_POSITION_X_Y);
+
+		if (this.y > MAX_POSITION_X_Y)
+			throw new Exception("The max Y axis is " + MAX_POSITION_X_Y);
 	}
-	
-	
+
+
 	public int getX() {
 		return x;
 	}
@@ -76,7 +85,7 @@ public class DronPosition {
 		this.cardinalPoint = cardinalPoint;
 	}
 
-	
+
 	/**
 	 * Text to describe de Drop position
 	 * Format: (x,y) direccion CardinalPoint[N,S,E,O]
@@ -92,6 +101,6 @@ public class DronPosition {
 		sb.append(this.cardinalPoint.toString());
 		return sb.toString();
 	}
-	
-	
+
+
 }
